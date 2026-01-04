@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Barrier Grid Animation Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="controls">
+      <h1>Barrier Grid Animation</h1>
+      <label for="stripWidth">
+        Strip width (px)
+        <input
+          id="stripWidth"
+          type="number"
+          min="1"
+          max="200"
+          step="1"
+          value="10"
+        />
+      </label>
+      <button id="generateBtn">Generate</button>
+      <button id="downloadBtn">Download PNG</button>
+    </section>
+
+    <section class="canvas-wrapper">
+      <canvas id="barrierCanvas"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
