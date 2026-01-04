@@ -6,10 +6,9 @@ const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 
 let barWidth = 10;
-let offset = 0;
-let lastTimestamp = 0;
-let speed = 60;
+let animationTime = 0;
 let animationFrameId = null;
+let speed = 2; // Speed of animation
 
 function resizeCanvasToDisplaySize() {
   const rect = canvas.getBoundingClientRect();
@@ -38,24 +37,18 @@ function drawBarrier() {
   ctx.fillStyle = '#000000';
 
   const step = barWidth * 2;
-  let x = -offset;
-
-  while (x < w) {
-    ctx.fillRect(Math.round(x), 0, barWidth, h);
-    x += step;
+  
+  // Create pulsing effect using sine wave
+  const pulse = Math.sin(animationTime * speed * 0.05) * 0.4 + 0.6;
+  const animatedBarWidth = barWidth * pulse;
+  
+  for (let x = 0; x < w; x += step) {
+    ctx.fillRect(x, 0, animatedBarWidth, h);
   }
 }
 
 function animate(timestamp) {
-  if (!lastTimestamp) lastTimestamp = timestamp;
-  const delta = (timestamp - lastTimestamp) / 1000;
-  lastTimestamp = timestamp;
-
-  offset += speed * delta;
-
-  const cycle = barWidth * 2;
-  offset = offset % cycle;
-
+  animationTime += 1;
   drawBarrier();
   animationFrameId = window.requestAnimationFrame(animate);
 }
@@ -65,8 +58,7 @@ function startAnimation() {
     window.cancelAnimationFrame(animationFrameId);
     animationFrameId = null;
   }
-  lastTimestamp = 0;
-  offset = 0;
+  animationTime = 0;
   animationFrameId = window.requestAnimationFrame(animate);
 }
 
